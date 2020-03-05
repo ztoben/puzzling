@@ -391,7 +391,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-syntax-jsx@^7.8.3":
+"@babel/plugin-syntax-jsx@^7.2.0", "@babel/plugin-syntax-jsx@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-jsx/-/plugin-syntax-jsx-7.8.3.tgz#521b06c83c40480f1e58b4fd33b92eceb1d6ea94"
   integrity sha512-WxdW9xyLgBdefoo0Ynn3MRSkhe5tFVxxKNVdnZSh318WrG2e2jH+E9wd/++JsqcLJZPfz87njQJ8j2Upjm0M0A==
@@ -672,7 +672,7 @@
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-jsx" "^7.8.3"
 
-"@babel/plugin-transform-react-jsx@^7.8.3":
+"@babel/plugin-transform-react-jsx@^7.3.0", "@babel/plugin-transform-react-jsx@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.8.3.tgz#4220349c0390fdefa505365f68c103562ab2fc4a"
   integrity sha512-r0h+mUiyL595ikykci+fbwm9YzmuOrUBi0b+FDIKmi3fPQyFokWVEMJnRWHJPPQEjyFJyna9WZC6Viv6UHSv1g==
@@ -899,6 +899,23 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@emotion/babel-plugin-jsx-pragmatic@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.1.5.tgz#27debfe9c27c4d83574d509787ae553bf8a34d7e"
+  integrity sha512-y+3AJ0SItMDaAgGPVkQBC/S/BaqaPACkQ6MyCI2CUlrjTxKttTVfD3TMtcs7vLEcLxqzZ1xiG0vzwCXjhopawQ==
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+
+"@emotion/babel-preset-css-prop@10.0.27":
+  version "10.0.27"
+  resolved "https://registry.yarnpkg.com/@emotion/babel-preset-css-prop/-/babel-preset-css-prop-10.0.27.tgz#58868d9a6afee0eeaeb0fa9dc5ccb1b12d4f786b"
+  integrity sha512-rducrjTpLGDholp0l2l4pXqpzAqYYGMg/x4IteO0db2smf6zegn6RRZdDnbaoMSs63tfPWgo2WukT1/F1gX/AA==
+  dependencies:
+    "@babel/plugin-transform-react-jsx" "^7.3.0"
+    "@babel/runtime" "^7.5.5"
+    "@emotion/babel-plugin-jsx-pragmatic" "^0.1.5"
+    babel-plugin-emotion "^10.0.27"
+
 "@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
@@ -975,6 +992,14 @@
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
+
+"@essentials/request-timeout@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@essentials/request-timeout/-/request-timeout-1.0.2.tgz#0fcb7d7ec186fcfc5f32685968407a2d51d6443d"
+  integrity sha512-P4pM8z1J9Ifj9SanjHyIuzV+AF/Ry6Coxm6foyza3aiDsweHME3t5sRrKv0ohpsmQLrmgt8XLlwFLPoAYLpq2Q==
+  dependencies:
+    performance-now "^2.1.0"
+    raf "^3.4.1"
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -1183,6 +1208,28 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@react-dnd/shallowequal/-/shallowequal-2.0.0.tgz#a3031eb54129f2c66b2753f8404266ec7bf67f0a"
   integrity sha512-Pc/AFTdwZwEKJxFJvlxrSmGe/di+aAOBn60sremrpLo6VI/6cmiUYNNwlI5KNYttg7uypzA3ILPMPgxB2GYZEg==
+
+"@react-hook/debounce@^1.0.6":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@react-hook/debounce/-/debounce-1.0.11.tgz#a8d1deec0d1757768a6ccc702c2edfb92447442f"
+  integrity sha512-FGLzLV2W7qnh2ehSGezao1wkdsMHhN00pYt8IuN/RLFhwd0YDwseEI6pM5ZGjf5lVsALvBaBMKriQ0Wm4UUA5A==
+  dependencies:
+    "@essentials/request-timeout" "^1.0.1"
+
+"@react-hook/throttle@^1.0.7":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@react-hook/throttle/-/throttle-1.0.12.tgz#4e78cf19de2a733d9a2dfcb342bf99de21fa3d64"
+  integrity sha512-hukkwzt3ok8vhDJGfBIJfQIfI+o2xaMwrZKUUY3yAHTGThJZ8SG5Uga/suuwa9vDNS3+PORPL4ib5cri/QHKnw==
+  dependencies:
+    "@essentials/request-timeout" "^1.0.1"
+
+"@react-hook/window-size@1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@react-hook/window-size/-/window-size-1.0.13.tgz#c9f1fcbff36a548c44468d2882858e185c48f154"
+  integrity sha512-9HlEV5vNKNnADaThaD0Qt12uNHzI+G5PC8DalxNbQNFbQROcx9kLeaVowx5Wqp3QKQUEEeeKpUgzW5+WgTOEfQ==
+  dependencies:
+    "@react-hook/debounce" "^1.0.6"
+    "@react-hook/throttle" "^1.0.7"
 
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.2"
@@ -3541,6 +3588,11 @@ dnd-core@^10.0.2:
     "@react-dnd/asap" "^4.0.0"
     "@react-dnd/invariant" "^2.0.0"
     redux "^4.0.4"
+
+dnd-multi-backend@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/dnd-multi-backend/-/dnd-multi-backend-5.0.0.tgz#afa73e541bf434cbf1a46ac717b2b9a580b5f19f"
+  integrity sha512-an4231UOPvipbcVXczXUHf1u3SNSTouSbu6ZLCPJvAO29yIo3C43ddS2evK5aastg2qKWTOlzI52IGq7q5oGGA==
 
 dns-equal@^1.0.0:
   version "1.0.0"
@@ -8375,6 +8427,29 @@ react-dev-utils@^10.2.0:
     shell-quote "1.7.2"
     strip-ansi "6.0.0"
     text-table "0.2.0"
+
+react-dnd-html5-backend@10.0.2:
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-10.0.2.tgz#15cb9d2b923f43576a136df854e288cb5969784c"
+  integrity sha512-ny17gUdInZ6PIGXdzfwPhoztRdNVVvjoJMdG80hkDBamJBeUPuNF2Wv4D3uoQJLjXssX1+i9PhBqc7EpogClwQ==
+  dependencies:
+    dnd-core "^10.0.2"
+
+react-dnd-multi-backend@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-dnd-multi-backend/-/react-dnd-multi-backend-5.0.0.tgz#eeb186ac32f46dd2f0ed720b653978d9e1fdfb5c"
+  integrity sha512-Ql8JKAmFnzzKLxOYUTIQVQZeQd1shbZKJiEbkDY5Vte3hY/YFdv+qs2IDxeH2LX2itBYrnEIgWYcRBacPtPeag==
+  dependencies:
+    dnd-multi-backend "^5.0.0"
+    prop-types "^15.7.2"
+    react-dnd-preview "^5.0.0"
+
+react-dnd-preview@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-dnd-preview/-/react-dnd-preview-5.0.0.tgz#a3a693c27195885a9f7413ccddf46a6fc5ef665a"
+  integrity sha512-TYXOsLUuEQpwAoxjPLWi+3bXsYGUBAslBFChUN6xyH11/ogsrQ9UrBIFf6uON7wmf2azsLAuWglfffXlZXSRsg==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-dnd-touch-backend@10.0.2:
   version "10.0.2"
