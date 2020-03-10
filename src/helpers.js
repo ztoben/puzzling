@@ -24,7 +24,9 @@ export function shufflePuzzle(puzzle) {
   const shuffledFlatPuzzle = shuffleArray(puzzle.flat());
 
   for (let i = 0; i < x; i++) {
-    shuffledPuzzle.push(shuffledFlatPuzzle.slice(i * y, i * y + y));
+    shuffledPuzzle.push(shuffledFlatPuzzle.slice(i * y, i * y + y).map((content, j) => {
+      return {...content, shuffledPosition: {x: i, y: j}}
+    }));
   }
 
   return shuffledPuzzle;
@@ -41,4 +43,26 @@ export function makePuzzleGrid(w, h) {
   }
 
   return shufflePuzzle(array);
+}
+
+export function unshufflePuzzle(puzzle) {
+  const unshuffledPuzzle = [];
+  const width = puzzle.length;
+  const height = puzzle[0].length;
+
+  let unshuffledFlatPuzzle = [...puzzle.flat()].sort((a, b) => {
+    const {shuffledPosition: {x: aX, y: aY}} = a;
+    const {shuffledPosition: {x: bX, y: bY}} = b;
+
+    const aPosition = aX + aY * width;
+    const bPosition = bX + bY * width;
+
+    return aPosition - bPosition;
+  });
+
+  for (let i = 0; i < width; i++) {
+    unshuffledPuzzle.push(unshuffledFlatPuzzle.slice(i * height, i * height + height));
+  }
+
+  return unshuffledPuzzle;
 }

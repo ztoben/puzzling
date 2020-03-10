@@ -1,6 +1,5 @@
 import React from 'react';
 import Piece from './Piece';
-import {useWindowSize} from '@react-hook/window-size';
 
 function Puzzle({
   puzzleGrid,
@@ -8,27 +7,12 @@ function Puzzle({
   setPuzzleGrid,
   setPuzzleSolved,
   swapPieces,
+  gridSize,
   sizeX,
   sizeY
 }) {
-  const [width, height] = useWindowSize();
-  const gridSize = width < height
-    ? width * .8 / sizeX
-    : height * .8 / sizeY;
-
   return (
-    <div
-      css={{
-        transition: 'transform 2s',
-        transformStyle: 'preserve-3d',
-        transform: puzzleSolved && 'rotateY(180deg)',
-        width: '100%',
-        height: `${gridSize * sizeY}px`,
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'center'
-      }}
-    >
+    <>
       <div
         css={{
           display: 'grid',
@@ -68,7 +52,7 @@ function Puzzle({
           <h1>You Win!!</h1>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
