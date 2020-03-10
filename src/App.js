@@ -31,7 +31,7 @@ function newGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY) {
   setPuzzleGrid(makePuzzleGrid(sizeX, sizeY));
 }
 
-function getButtonStyle(color) {
+function getButtonStyle(color, enabled) {
   return {
     color: color,
     backgroundColor: 'white',
@@ -41,10 +41,18 @@ function getButtonStyle(color) {
     height: 48,
     textTransform: 'uppercase',
     outline: 'none',
-    '&:hover': {
-      backgroundColor: color,
-      color: 'white',
-      cursor: 'pointer'
+    ...enabled && {
+      '&:hover': {
+        backgroundColor: color,
+        color: 'white',
+        cursor: 'pointer'
+      }
+    },
+    ...!enabled && {
+      '&:hover': {
+        cursor: 'not-allowed',
+        backgroundColor: 'lightgray'
+      }
     }
   }
 }
@@ -64,8 +72,9 @@ const headerStyle = {
 function App() {
   const sizeX = 3;
   const sizeY = 3;
+  const [puzzleImage, setPuzzleImage] = useState(undefined);
   const [puzzleSolved, setPuzzleSolved] = useState(false);
-  const [puzzleGrid, setPuzzleGrid] = useState();
+  const [puzzleGrid, setPuzzleGrid] = useState(undefined);
   const [width, height] = useWindowSize();
   const gridSize = width < height
     ? width * .8 / sizeX
@@ -77,8 +86,7 @@ function App() {
         <div
           css={{
             display: 'inline-flex',
-            maxWidth: 500,
-            width: '80%',
+            width: `${gridSize * sizeX}px`,
             alignItems: 'center',
             padding: 10
           }}
@@ -87,7 +95,7 @@ function App() {
           <h1 css={headerStyle}>Puzzling</h1>
           {puzzleGrid && (
             <button
-              css={getButtonStyle('orange')}
+              css={getButtonStyle('orange', true)}
               onClick={() => resetGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY, puzzleGrid)}
             >
               Reset
@@ -100,10 +108,19 @@ function App() {
           sizeY={sizeY}
         >
           {!puzzleGrid && (
-            <div>
+            <div css={{display: 'flex', flexDirection: 'column'}}>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(event) => setPuzzleImage(event.target.files[0])}
+                css={{
+                  marginBottom: 10
+                }}
+              />
               <button
-                css={getButtonStyle('green')}
+                css={getButtonStyle('green', puzzleImage)}
                 onClick={() => newGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY)}
+                disabled={!puzzleImage}
               >
                 New Game
               </button>

@@ -54,8 +54,8 @@ export function unshufflePuzzle(puzzle) {
     const {shuffledPosition: {x: aX, y: aY}} = a;
     const {shuffledPosition: {x: bX, y: bY}} = b;
 
-    const aPosition = aX + aY * width;
-    const bPosition = bX + bY * width;
+    const aPosition = aY + aX * width;
+    const bPosition = bY + bX * width;
 
     return aPosition - bPosition;
   });
