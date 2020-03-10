@@ -26,9 +26,38 @@ function resetGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY, puzzleGrid) {
   setPuzzleGrid(unshufflePuzzle(puzzleGrid));
 }
 
-function newGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY) {
+function clearGame(setPuzzleGrid, setPuzzleSolved, setPuzzleImage) {
+  setPuzzleGrid(undefined);
+  setPuzzleImage(undefined);
   setPuzzleSolved(false);
-  setPuzzleGrid(makePuzzleGrid(sizeX, sizeY));
+}
+
+function newGame(setPuzzleGrid, setPuzzleSolved, setResizedImage, sizeX, sizeY, puzzleImage, gridSize) {
+  const imageToResize = new Image();
+  const image = new Image();
+  const reader = new FileReader();
+
+  reader.addEventListener("load", function () {
+    imageToResize.src = reader.result;
+    imageToResize.onload = () => {
+      let canvas = document.createElement('canvas');
+      let ctx = canvas.getContext('2d');
+      canvas.width = gridSize * sizeX;
+      canvas.height = canvas.width * (imageToResize.height / imageToResize.width);
+      ctx.drawImage(imageToResize, 0, 0, canvas.width, canvas.height);
+
+      const resizedImageDataURL = canvas.toDataURL('image/png');
+
+      image.src = resizedImageDataURL;
+      image.onload = () => {
+        setResizedImage(resizedImageDataURL);
+        setPuzzleSolved(false);
+        setPuzzleGrid(makePuzzleGrid(sizeX, sizeY, image, gridSize));
+      }
+    }
+  }, false);
+
+  reader.readAsDataURL(puzzleImage);
 }
 
 function getButtonStyle(color, enabled) {
@@ -70,9 +99,11 @@ const headerStyle = {
 };
 
 function App() {
-  const sizeX = 3;
-  const sizeY = 3;
+  const sizeX = 4;
+  const sizeY = 4;
+
   const [puzzleImage, setPuzzleImage] = useState(undefined);
+  const [resizedImage, setResizedImage] = useState(undefined);
   const [puzzleSolved, setPuzzleSolved] = useState(false);
   const [puzzleGrid, setPuzzleGrid] = useState(undefined);
   const [width, height] = useWindowSize();
@@ -94,12 +125,20 @@ function App() {
           <Logo width={40} height={40}/>
           <h1 css={headerStyle}>Puzzling</h1>
           {puzzleGrid && (
-            <button
-              css={getButtonStyle('orange', true)}
-              onClick={() => resetGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY, puzzleGrid)}
-            >
-              Reset
-            </button>
+            <>
+              <button
+                css={getButtonStyle('orange', true)}
+                onClick={() => resetGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY, puzzleGrid)}
+              >
+                Reset
+              </button>
+              <button
+                css={{...getButtonStyle('red', true), marginLeft: 10}}
+                onClick={() => clearGame(setPuzzleGrid, setPuzzleSolved, setPuzzleGrid)}
+              >
+                Clear
+              </button>
+            </>
           )}
         </div>
         <PuzzleContainer
@@ -113,13 +152,11 @@ function App() {
                 type="file"
                 accept="image/*"
                 onChange={(event) => setPuzzleImage(event.target.files[0])}
-                css={{
-                  marginBottom: 10
-                }}
+                css={{marginBottom: 10}}
               />
               <button
                 css={getButtonStyle('green', puzzleImage)}
-                onClick={() => newGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY)}
+                onClick={() => newGame(setPuzzleGrid, setPuzzleSolved, setResizedImage, sizeX, sizeY, puzzleImage, gridSize)}
                 disabled={!puzzleImage}
               >
                 New Game
@@ -136,6 +173,7 @@ function App() {
               setPuzzleSolved={setPuzzleSolved}
               setPuzzleGrid={setPuzzleGrid}
               swapPieces={swapPieces}
+              resizedImage={resizedImage}
             />
           )}
         </PuzzleContainer>

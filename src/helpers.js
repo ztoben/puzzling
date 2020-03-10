@@ -32,13 +32,36 @@ export function shufflePuzzle(puzzle) {
   return shuffledPuzzle;
 }
 
-export function makePuzzleGrid(w, h) {
+export function makePuzzleGrid(w, h, image, gridSize) {
   let array = [];
 
   for (let x = 0; x < h; x++) {
     array[x] = [];
     for (let y = 0; y < w; y++) {
-      array[x][y] = {solvedPosition: {x, y}, content: [x, y].toString()};
+      let canvas = document.createElement('canvas');
+
+      canvas.width = gridSize;
+      canvas.height = gridSize;
+
+      let context = canvas.getContext('2d');
+
+      context.drawImage(
+        image,
+        y * gridSize,
+        x * gridSize,
+        gridSize,
+        gridSize,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      array[x][y] = {
+        solvedPosition: {x, y},
+        content: [x, y].toString(),
+        image: canvas.toDataURL()
+      };
     }
   }
 

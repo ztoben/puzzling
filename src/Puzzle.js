@@ -9,7 +9,8 @@ function Puzzle({
   swapPieces,
   gridSize,
   sizeX,
-  sizeY
+  sizeY,
+  resizedImage
 }) {
   return (
     <>
@@ -24,12 +25,13 @@ function Puzzle({
           position: 'absolute'
         }}
       >
-        {puzzleGrid.map((rows, x) => rows.map(({content}, y) => {
+        {puzzleGrid.map((rows, x) => rows.map(({content, image}, y) => {
           return (
             <Piece
               x={x}
               y={y}
               content={content}
+              image={image}
               onDrop={(dragX, dragY) => swapPieces(puzzleGrid, setPuzzleGrid, setPuzzleSolved, x, y, dragX, dragY)}
               key={x + y}
             />
@@ -49,7 +51,7 @@ function Puzzle({
             position: 'absolute'
           }}
         >
-          <h1>You Win!!</h1>
+          <img src={resizedImage} alt="solvedImage" width={gridSize * sizeX} height={gridSize * sizeY}/>
         </div>
       )}
     </>
