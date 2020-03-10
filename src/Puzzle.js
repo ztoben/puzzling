@@ -1,12 +1,25 @@
 import React from 'react';
 import Piece from './Piece';
+import {isPuzzleSolved} from './helpers';
+
+function swapPieces(puzzleGrid, setPuzzleGrid, setPuzzleSolved, dropX, dropY, dragX, dragY) {
+  const newPuzzleGrid = JSON.parse(JSON.stringify(puzzleGrid));
+  const dragPiece = newPuzzleGrid[dragX][dragY];
+  const dropPiece = newPuzzleGrid[dropX][dropY];
+
+  newPuzzleGrid[dragX][dragY] = dropPiece;
+  newPuzzleGrid[dropX][dropY] = dragPiece;
+
+  setPuzzleGrid(newPuzzleGrid);
+
+  setPuzzleSolved(isPuzzleSolved(newPuzzleGrid));
+}
 
 function Puzzle({
   puzzleGrid,
   puzzleSolved,
   setPuzzleGrid,
   setPuzzleSolved,
-  swapPieces,
   gridSize,
   sizeX,
   sizeY,
