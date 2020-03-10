@@ -1,6 +1,7 @@
 import React from 'react';
-import {ReactComponent as Logo} from './logo.svg';
+import {ReactComponent as Logo} from './svgs/logo.svg';
 import {unshufflePuzzle} from './helpers';
+import {getButtonStyle} from './styles';
 
 function resetGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY, puzzleGrid) {
   setPuzzleSolved(false);
@@ -28,7 +29,6 @@ function PuzzleContainer({
   setPuzzleGrid,
   setPuzzleSolved,
   puzzleGrid,
-  getButtonStyle
 }) {
   return (
     <>
@@ -45,13 +45,13 @@ function PuzzleContainer({
         {puzzleGrid && (
           <>
             <button
-              css={getButtonStyle('orange', true)}
+              css={getButtonStyle('orange')}
               onClick={() => resetGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY, puzzleGrid)}
             >
               Reset
             </button>
             <button
-              css={{...getButtonStyle('red', true), marginLeft: 10}}
+              css={{...getButtonStyle('red'), marginLeft: 10}}
               onClick={() => clearGame(setPuzzleGrid, setPuzzleSolved, setPuzzleGrid)}
             >
               Clear

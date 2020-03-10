@@ -7,33 +7,6 @@ import PuzzleContainer from './PuzzleContainer';
 import NewGame from './NewGame';
 import Puzzle from './Puzzle';
 
-function getButtonStyle(color, enabled) {
-  return {
-    color: color,
-    backgroundColor: 'white',
-    border: `2px solid ${color}`,
-    borderRadius: '10px',
-    padding: 10,
-    height: 48,
-    minWidth: 48,
-    textTransform: 'uppercase',
-    outline: 'none',
-    ...enabled && {
-      '&:hover': {
-        backgroundColor: color,
-        color: 'white',
-        cursor: 'pointer'
-      }
-    },
-    ...!enabled && {
-      '&:hover': {
-        cursor: 'not-allowed',
-        backgroundColor: 'lightgray'
-      }
-    }
-  }
-}
-
 const appContainerStyle = {
   display: 'flex',
   alignItems: 'center',
@@ -64,7 +37,6 @@ function App() {
           setPuzzleGrid={setPuzzleGrid}
           setPuzzleSolved={setPuzzleSolved}
           puzzleGrid={puzzleGrid}
-          getButtonStyle={getButtonStyle}
         >
           {puzzleGrid ? (
             <Puzzle
@@ -80,7 +52,6 @@ function App() {
           ) : (
             <NewGame
               setPuzzleImage={setPuzzleImage}
-              getButtonStyle={getButtonStyle}
               sizeX={sizeX}
               setSizeX={setSizeX}
               sizeY={sizeY}
