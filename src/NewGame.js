@@ -60,8 +60,6 @@ function NewGame({
   setResizedImage,
   gridSize
 }) {
-  console.log(puzzleImage);
-
   return (
     <div css={{display: 'flex', flexDirection: 'column', backfaceVisibility: 'hidden'}}>
       <label
