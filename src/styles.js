@@ -2,6 +2,7 @@ export function getButtonStyle(color, enabled = true) {
   return {
     color: color,
     backgroundColor: 'white',
+    opacity: enabled ? 1 : .5,
     border: `2px solid ${color}`,
     borderRadius: '10px',
     padding: 10,
@@ -22,8 +23,7 @@ export function getButtonStyle(color, enabled = true) {
     },
     ...!enabled && {
       '&:hover': {
-        cursor: 'not-allowed',
-        backgroundColor: 'lightgray'
+        cursor: 'not-allowed'
       }
     }
   }

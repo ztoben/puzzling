@@ -38,19 +38,21 @@ export function makePuzzleGrid(w, h, image, gridSize) {
   for (let x = 0; x < h; x++) {
     array[x] = [];
     for (let y = 0; y < w; y++) {
-      let canvas = document.createElement('canvas');
+      const maintainWidthRatio = image.width / (gridSize * w);
+      const maintainHeightRatio = image.height / (gridSize * h);
+      const canvas = document.createElement('canvas');
 
       canvas.width = gridSize;
       canvas.height = gridSize;
 
-      let context = canvas.getContext('2d');
+      const context = canvas.getContext('2d');
 
       context.drawImage(
         image,
-        y * gridSize,
-        x * gridSize,
-        gridSize,
-        gridSize,
+        y * gridSize * maintainWidthRatio,
+        x * gridSize * maintainHeightRatio,
+        gridSize * maintainWidthRatio,
+        gridSize * maintainHeightRatio,
         0,
         0,
         canvas.width,

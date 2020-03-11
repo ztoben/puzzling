@@ -8,15 +8,36 @@ function buildNewGame(setPuzzleGrid, setPuzzleSolved, setResizedImage, sizeX, si
   const imageToResize = new Image();
   const image = new Image();
   const reader = new FileReader();
+  const outputImageAspectRatio = sizeX / sizeY;
 
   reader.addEventListener("load", function () {
     imageToResize.src = reader.result;
     imageToResize.onload = () => {
-      let canvas = document.createElement('canvas');
-      let ctx = canvas.getContext('2d');
-      canvas.width = gridSize * sizeX;
-      canvas.height = canvas.width * (imageToResize.height / imageToResize.width);
-      ctx.drawImage(imageToResize, 0, 0, canvas.width, canvas.height);
+      // https://pqina.nl/blog/cropping-images-to-an-aspect-ratio-with-javascript/
+      const inputWidth = imageToResize.naturalWidth;
+      const inputHeight = imageToResize.naturalHeight;
+
+      const imageToResizeAspectRatio = inputWidth / inputHeight;
+
+      let outputWidth = inputWidth;
+      let outputHeight = inputHeight;
+      if (imageToResizeAspectRatio > outputImageAspectRatio) {
+        outputWidth = inputHeight * outputImageAspectRatio;
+      } else if (imageToResizeAspectRatio < outputImageAspectRatio) {
+        outputHeight = inputWidth / outputImageAspectRatio;
+      }
+
+      const outputX = (outputWidth - inputWidth) * .5;
+      const outputY = (outputHeight - inputHeight) * .5;
+
+      const canvas = document.createElement('canvas');
+
+      canvas.width = outputWidth;
+      canvas.height = outputHeight;
+
+      const context = canvas.getContext('2d');
+
+      context.drawImage(imageToResize, outputX, outputY);
 
       const resizedImageDataURL = canvas.toDataURL('image/png');
 
@@ -61,7 +82,13 @@ function NewGame({
   gridSize
 }) {
   return (
-    <div css={{display: 'flex', flexDirection: 'column', backfaceVisibility: 'hidden'}}>
+    <div css={{
+      display: 'flex',
+      flexDirection: 'column',
+      backfaceVisibility: 'hidden',
+      boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+      padding: 50
+    }}>
       <label
         css={{
           ...getButtonStyle('darkturquoise'),
@@ -69,7 +96,7 @@ function NewGame({
           marginBottom: 10
         }}
       >
-        {!puzzleImage && <Upload width={18} height={18} css={{marginRight: 10}} />}
+        {!puzzleImage && <Upload width={18} height={18} css={{marginRight: 10}}/>}
         {!puzzleImage ? 'Choose a picture...' : puzzleImage.name}
         <input
           id="fileInput"
@@ -117,23 +144,21 @@ function NewGame({
           +
         </button>
       </div>
-      {puzzleImage && (
-        <button
-          css={getButtonStyle('limegreen')}
-          onClick={() => buildNewGame(
-            setPuzzleGrid,
-            setPuzzleSolved,
-            setResizedImage,
-            sizeX,
-            sizeY,
-            puzzleImage,
-            gridSize
-          )}
-          disabled={!puzzleImage}
-        >
-          New Game
-        </button>
-      )}
+      <button
+        css={getButtonStyle('limegreen', !!puzzleImage)}
+        onClick={() => buildNewGame(
+          setPuzzleGrid,
+          setPuzzleSolved,
+          setResizedImage,
+          sizeX,
+          sizeY,
+          puzzleImage,
+          gridSize
+        )}
+        disabled={!puzzleImage}
+      >
+        New Game
+      </button>
     </div>
   );
 }

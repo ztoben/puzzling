@@ -7,10 +7,10 @@ function determineBackgroundColor(isDragging, isOver) {
   if (isDragging) return 'yellow';
   if (isOver) return 'green';
 
-  return 'white';
+  return 'black';
 }
 
-function Piece({x, y, content, image, onDrop}) {
+function Piece({x, y, content, image, onDrop, gridSize}) {
   const [{isDragging, item}, drag, preview] = useDrag({
     item: {type: ItemTypes.PUZZLE_PIECE, dragPosition: {x, y}},
     collect: monitor => ({
@@ -49,10 +49,11 @@ function Piece({x, y, content, image, onDrop}) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          border: '1px solid black'
+          border: '1px solid black',
+          margin: -1
         }}
       >
-        <img src={image} alt={content}/>
+        <img src={image} alt={content} width={gridSize} height={gridSize}/>
       </div>
     </>
   )

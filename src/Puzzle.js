@@ -47,6 +47,7 @@ function Puzzle({
               image={image}
               onDrop={(dragX, dragY) => swapPieces(puzzleGrid, setPuzzleGrid, setPuzzleSolved, x, y, dragX, dragY)}
               key={x + y}
+              gridSize={gridSize}
             />
           )
         }))}
