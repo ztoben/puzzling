@@ -1,8 +1,8 @@
 import React from 'react';
 import {ItemTypes} from './constants';
 import {useDrag, useDrop} from 'react-dnd';
-import {Preview} from 'react-dnd-multi-backend';
 import {isTouchDevice} from './helpers/isTouchDevice';
+import Preview from 'react-dnd-preview';
 
 function determineBackgroundColor(isDragging, isOver) {
   if (isDragging) return 'yellow';
@@ -11,9 +11,24 @@ function determineBackgroundColor(isDragging, isOver) {
   return 'black';
 }
 
+function centerTransformStyles(style, gridSize) {
+  const parenRegExp = /\(([^)]+)\)/;
+  const {transform} = style;
+  const [, currentOffsets] = parenRegExp.exec(transform);
+  const [offsetX, offsetY] = currentOffsets.split(', ');
+  const newOffsetY = parseFloat(offsetY.slice(0, -2)) - gridSize / 2;
+  const newTransform = `translate(${offsetX}, ${newOffsetY}px)`;
+
+  return {
+    ...style,
+    transform: newTransform,
+    WebkitTransform: newTransform
+  }
+}
+
 const generatePreview = ({item: {image, content, gridSize}, style}) => {
   return (
-    <div css={style}>
+    <div style={centerTransformStyles(style, gridSize)}>
       <img src={image} alt={content} width={gridSize} height={gridSize}/>
     </div>
   );
