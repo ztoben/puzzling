@@ -1,6 +1,6 @@
 import React from 'react';
 import {ReactComponent as Upload} from './svgs/upload.svg';
-import {makePuzzleGrid} from './helpers';
+import {makePuzzleGrid} from './helpers/puzzle';
 import {MAX_GRID_SIZE, MIN_GRID_SIZE} from './constants';
 import {getButtonStyle} from './styles';
 

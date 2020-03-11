@@ -1,7 +1,8 @@
-import React from 'react'
-import {ItemTypes} from './constants'
-import {useDrag, useDrop} from 'react-dnd'
-import {DragPreviewImage} from 'react-dnd/lib/common/DragPreviewImage';
+import React from 'react';
+import {ItemTypes} from './constants';
+import {useDrag, useDrop} from 'react-dnd';
+import {Preview} from 'react-dnd-multi-backend';
+import {isTouchDevice} from './helpers/isTouchDevice';
 
 function determineBackgroundColor(isDragging, isOver) {
   if (isDragging) return 'yellow';
@@ -10,9 +11,23 @@ function determineBackgroundColor(isDragging, isOver) {
   return 'black';
 }
 
+const generatePreview = ({item: {image, content, gridSize}, style}) => {
+  return (
+    <div css={style}>
+      <img src={image} alt={content} width={gridSize} height={gridSize}/>
+    </div>
+  );
+};
+
 function Piece({x, y, content, image, onDrop, gridSize}) {
-  const [{isDragging, item}, drag, preview] = useDrag({
-    item: {type: ItemTypes.PUZZLE_PIECE, dragPosition: {x, y}},
+  const [{isDragging, item}, drag] = useDrag({
+    item: {
+      type: ItemTypes.PUZZLE_PIECE,
+      dragPosition: {x, y},
+      gridSize,
+      image,
+      content
+      },
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
       item: monitor.getItem()
@@ -37,7 +52,7 @@ function Piece({x, y, content, image, onDrop, gridSize}) {
 
   return (
     <>
-      <DragPreviewImage connect={preview} src={image} />
+      {isTouchDevice && <Preview>{generatePreview}</Preview>}
       <div
         ref={attachRef}
         style={{

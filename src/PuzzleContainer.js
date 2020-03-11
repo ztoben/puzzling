@@ -1,6 +1,6 @@
 import React from 'react';
 import {ReactComponent as Logo} from './svgs/logo.svg';
-import {unshufflePuzzle} from './helpers';
+import {unshufflePuzzle} from './helpers/puzzle';
 import {getButtonStyle} from './styles';
 
 function resetGame(setPuzzleGrid, setPuzzleSolved, sizeX, sizeY, puzzleGrid) {

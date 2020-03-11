@@ -1,6 +1,6 @@
 import React from 'react';
 import Piece from './Piece';
-import {isPuzzleSolved} from './helpers';
+import {isPuzzleSolved} from './helpers/puzzle';
 
 function swapPieces(puzzleGrid, setPuzzleGrid, setPuzzleSolved, dropX, dropY, dragX, dragY) {
   const newPuzzleGrid = JSON.parse(JSON.stringify(puzzleGrid));
