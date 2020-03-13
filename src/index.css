@@ -1,10 +1,24 @@
-body {
-  margin: 0;
+body, .wrapper {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  overflow-y: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  top: 0;
+}
+
+body {
+  z-index: 1;
+}
+
+.wrapper {
+  z-index: 2;
 }
 
 code {

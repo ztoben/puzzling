@@ -16,7 +16,7 @@ function centerTransformStyles(style, gridSize) {
   const {transform} = style;
   const [, currentOffsets] = parenRegExp.exec(transform);
   const [offsetX, offsetY] = currentOffsets.split(', ');
-  const newOffsetY = parseFloat(offsetY.slice(0, -2)) - gridSize / 2;
+  const newOffsetY = parseFloat(offsetY.slice(0, -2)) - gridSize * .70;
   const newTransform = `translate(${offsetX}, ${newOffsetY}px)`;
 
   return {

@@ -65,11 +65,12 @@ function PuzzleContainer({
           transformStyle: 'preserve-3d',
           transform: puzzleSolved && 'rotateY(180deg)',
           width: '100%',
-          height: `${gridSize * sizeY}px`,
+          height: puzzleGrid ? `${gridSize * sizeY}px` : '100%',
           position: 'relative',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          marginTop: puzzleGrid ? 0 : 50
         }}
       >
         {children}
